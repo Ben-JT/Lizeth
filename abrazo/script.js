@@ -5,7 +5,7 @@ const yesBtn = document.querySelector(".yes-btn");
 const noBtn = document.querySelector(".no-btn");
 
 yesBtn.addEventListener("click", () => {
-  question.innerHTML = "Te veo mañana a las 3pm 🙃🚀​​";
+  question.innerHTML = "Te veo mañana a las 6pm 🙃🚀​​";
   gif.src =
     "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmI1eW1yemkyYjRmczM3cXpqdjZ5bjN4MTg3NDgza281enMxZzBwNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/odIt5RqXhRsDm/giphy.gif";
 });
