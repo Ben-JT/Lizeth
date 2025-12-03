@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tengo que contarte algo importante</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: rgb(230, 223, 223);
+        color: #090909;
+        width: 100vw;
+        height: 100dvh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .section1 {
+        h1 {
+          text-align: center;
+        }
+        .span-1 {
+          font-size: 4rem;
+        }
+        .span-2 {
+          font-size: 2rem;
+        }
+        .span-3 {
+          font-size: 3rem;
+        }
+        .span-4 {
+          font-size: 2.5rem;
+        }
+        button {
+          width: 75px;
+          height: 30px;
+          border: none;
+          border-radius: 15px;
+          color: rgb(230, 223, 223);
+          background: #d3475e;
+          margin-top: 20px;
+          &:hover {
+            background: #090909c3;
+          }
+        }
+      }
+      .letras {
+        span {
+          font-size: 4rem;
+        }
+      }
+      .meme-final {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; 
+        height: 100vh;
+        text-align: center;
+        span {
+          font-size: 2.8rem;
+        }
+      }
+      .desactivado {
+        display: none;
+      }
+      .oculto {
+        visibility: hidden;
+      }
+    </style>
+    <script type="module">
+      const $ = (e) => document.getElementById(e);
+      const section1 = $("s1");
+      const btn = $("btn");
+      const audio = $("myAudio");
+
+      const section2 = $("s2");
+      const pLetras = $("pLetras");
+
+      const letrasConfig = [
+        { palabras: ["I still", "remember"], tiempo: 0 },
+        { palabras: ["third", "of", "December"], tiempo: 2170 },
+        { palabras: ["me","in your","sweater"], tiempo: 5100 },
+        { palabras: ["you","said it","Looked better"], tiempo: 7210 },
+        { palabras: ["on me,","than it","did you"], tiempo: 10000 },
+        { palabras: ["only,","if","you knew"], tiempo: 13000 },
+        { palabras: ["how much","i liked", "you"], tiempo: 15160 },
+        { palabras: ["but","i watch","your eyes"], tiempo: 18200 },
+        { palabras: ["as","she"], tiempo: 20000 },
+        
+        { palabras: ["walk", "by"], tiempo: 21000, esUltimo: true },
+      ];
+
+      btn.addEventListener("click", () => {
+        section1.classList.add("desactivado");
+        section2.classList.remove("desactivado");
+
+        audio.volume = 1.0;
+        audio.play();
+        mostrarLetras(letrasConfig);
+      });
+
+function mostrarLetras(config) {
+        config.forEach((letraObj) => {
+          setTimeout(() => {
+            pLetras.innerHTML = "";
+
+            // --- PALABRA 1 (Siempre se muestra) ---
+            const span1 = document.createElement("span");
+            span1.textContent = letraObj.palabras[0];
+            pLetras.appendChild(span1);
+
+            const saltoDeLinea = document.createElement("br");
+            pLetras.appendChild(saltoDeLinea);
+
+            if (letraObj.esUltimo) {
+               // ... (Todo tu código del final/meme se queda igual) ...
+                setTimeout(() => {
+                pLetras.innerHTML = "";
+                const gif = document.createElement("img");
+                const span = document.createElement("span");
+                // ... etc ...
+                span.innerHTML = "TE QUERO<br />MUUUUCHO BOBA<br />🫶";
+                gif.src = "./love.png";
+                pLetras.appendChild(span);
+                pLetras.appendChild(document.createElement("br")); // corregí esta linea pequeña
+                pLetras.appendChild(gif);
+                pLetras.classList.add("meme-final");
+              }, 2500);
+
+            } else {
+              // --- PALABRA 2 ---
+              // Verificamos si existe para evitar errores
+              if (letraObj.palabras[1]) {
+                  const span2 = document.createElement("span");
+                  span2.textContent = letraObj.palabras[1];
+                  span2.classList.add("oculto");
+                  pLetras.appendChild(span2);
+
+                  setTimeout(() => {
+                    span2.classList.remove("oculto");
+                  }, 520);
+              }
+
+              // --- AQUI AGREGAMOS LA LOGICA PARA LA PALABRA 3 ---
+              if (letraObj.palabras[2]) {
+                  // Agregamos otro salto de línea antes de la 3ra palabra
+                  const saltoDeLinea2 = document.createElement("br");
+                  pLetras.appendChild(saltoDeLinea2);
+
+                  const span3 = document.createElement("span");
+                  span3.textContent = letraObj.palabras[2];
+                  span3.classList.add("oculto");
+                  pLetras.appendChild(span3);
+
+                  // Le damos el DOBLE de tiempo (1040ms) para que salga después de la segunda
+                  setTimeout(() => {
+                    span3.classList.remove("oculto");
+                  }, 1040); 
+              }
+            }
+          }, letraObj.tiempo);
+        });
+      }
+      
+    </script>
+  </head>
+  <body>
+    <div class="section1" id="s1">
+      <h1>
+        <span class="span-1">Hey</span><br />
+        <span class="span-2">tengo que</span><br />
+        <span class="span-3">contarte</span><br />
+        <span class="span-4">que...</span><br />
+        <button id="btn">ver</button>
+      </h1>
+    </div>
+    <div class="section2 desactivado" id="s2">
+      <audio
+        id="myAudio"
+        src="audio/Heather - Conan Gray.mp3"
+        preload="auto"
+        class="desactivado"
+      ></audio>
+      <p class="letras" id="pLetras">Hola</p>
+    </div>
+  </body>
+</html>
